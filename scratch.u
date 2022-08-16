@@ -1,0 +1,20 @@
+myTerm = List.map(x -> x * 10) [1, 2, 3, 4, 5, 6, 7]
+
+-- This is a watch expression it means: 'eval me'
+> myTerm
+
+--this is how we test stuff - it evals and checks
+test> check(size myTerm == 7)
+
+-- now for something slightly more complicated...
+
+square: Nat -> Nat
+square x = x * x
+
+-- this one is a property-based test - we can generate
+-- examples instead of providing them manually
+test> square.tests.prop1 =
+  go _ =  a = !gen.nat
+          b = !gen.nat
+          expect (square a * square b == square (a * b))
+  runs 100 go 
